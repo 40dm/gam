@@ -7,4 +7,4 @@ Enjoy the ride.
 ### TO DO:
 - [x] Create github repo
 - [x] Get things set up in Google Cloud Domains
-- [] Proof of concept
+- [ ] Proof of concept
