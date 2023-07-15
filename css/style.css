@@ -1,0 +1,19 @@
+main {
+    border: 5px solid black;
+    width: 500px;
+    height: 500px;
+    margin-left: 10px;
+}
+
+#controller {
+    border: 1px solid black;
+    width: 504px;
+    margin-left: 10px;
+    padding: 2px;
+}
+
+#dude {
+    border: 1px solid purple;
+    color: white;
+    background: purple;
+}
