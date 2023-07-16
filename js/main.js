@@ -1,3 +1,7 @@
+// TODO: all below prob needs to go into its own module and then get imported
+// but i ran into issues when using modules. Maybe bc of github pages, or maybe
+// i did something wrong
+
 class Canvas {
     constructor (id) {
         this.element = document.getElementById(id);
@@ -9,8 +13,6 @@ class Canvas {
 
 // Create a new canvas
 let canvas = new Canvas("test");
-
-// TODO: all below prob needs to go into its own module and then get imported
 
 canvas.draw.fillStyle = "test";
 canvas.draw.fillRect(0, 0, canvas.element.width, canvas.element.height);
