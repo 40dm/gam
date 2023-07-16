@@ -1,15 +1,11 @@
-class Canvas {
-    constructor (id) {
-        this.element = document.getElementById(id);
-        this.element.width = window.innerWidth;
-        this.element.height = window.innerHeight;
-        this.draw = this.element.getContext('2d');
-    }
-}
+import { Canvas } from "js/canvas.js";
 
-// Create a black canvas
-let canvas = new Canvas('test');
-canvas.draw.fillStyle = 'black';
+// Create a new canvas
+let canvas = new Canvas("test");
+
+// TODO: all below prob needs to go into its own module and then get imported
+
+canvas.draw.fillStyle = "test";
 canvas.draw.fillRect(0, 0, canvas.element.width, canvas.element.height);
 
 // TODO: create a listener to update canvas size on window resizing
