@@ -1,15 +1,24 @@
-// Just doing some dumb stuff to remember how to get the ID of an element during a click event.
-// This code will log in the console (in your browser) the ID of the button that you clicked.
-
-// This is a simple way to add an event listener for all 4 buttons with just 2 measly lines of code. Pog.
-const buttons = document.querySelectorAll('button')
-Array.from(buttons).forEach(e => e.addEventListener('click', move))
-
-// I personally hate this function but I have yet to learn a better way to get the ID of a clicked element.
-// If you know a better way, just do it and I will learn.
-function move(elementId) {
-    elementId = window.event;
-    target = elementId.target;
-    let selection = target.id
-    console.log(`User clicked: ${selection}.`)
+class Canvas {
+    constructor (id) {
+        this.element = document.getElementById(id);
+        this.element.width = window.innerWidth;
+        this.element.height = window.innerHeight;
+        this.draw = this.element.getContext('2d');
+    }
 }
+
+// Create a black canvas
+let canvas = new Canvas('test');
+canvas.draw.fillStyle = 'black';
+canvas.draw.fillRect(0, 0, canvas.element.width, canvas.element.height);
+
+// TODO: create a listener to update canvas size on window resizing
+
+// Just a test shape
+canvas.draw.beginPath();
+canvas.draw.arc(canvas.element.width / 2, 
+                canvas.element.height / 2, 
+                Math.min(canvas.element.width, canvas.element.height) / 30, 
+                0, 2 * Math.PI);
+canvas.draw.strokeStyle = "white";
+canvas.draw.stroke();
