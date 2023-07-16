@@ -27,3 +27,5 @@ canvas.draw.arc(canvas.element.width / 2,
                 0, 2 * Math.PI);
 canvas.draw.strokeStyle = "white";
 canvas.draw.stroke();
+
+// TODO: create movement of the circle using WASD
