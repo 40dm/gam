@@ -1,15 +1,4 @@
-// TODO: all below prob needs to go into its own module and then get imported
-// but i ran into issues when using modules. Maybe bc of github pages, or maybe
-// i did something wrong
-
-class Canvas {
-    constructor (id) {
-        this.element = document.getElementById(id);
-        this.element.width = window.innerWidth;
-        this.element.height = window.innerHeight;
-        this.draw = this.element.getContext("2d");
-    }
-}
+import { Canvas } from "./modules/canvas.js";
 
 // Create a new canvas
 let canvas = new Canvas("test");
