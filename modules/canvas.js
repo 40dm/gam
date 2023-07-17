@@ -1,10 +1,11 @@
 export class Canvas {
-    constructor(id, parent) {
+    constructor(id) {
       this.id = id;
-      this.parent = parent;
+      this.parent = document.body;
       this.element = null;
       this.container = null;
       this.context = null;
+      this.center = {x: 0, y: 0};
     }
 
     create() {
@@ -23,6 +24,7 @@ export class Canvas {
 
     set width(size) {
         this.element.width = size;
+        this.center.x = size / 2;
     }
 
     get width() {
@@ -31,6 +33,7 @@ export class Canvas {
 
     set height(size) {
         this.element.height = size;
+        this.center.y = size / 2;
     }
 
     get height() {
