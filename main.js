@@ -7,30 +7,21 @@ let canvas = new Canvas('game', document.body);
 canvas.create();
 canvas.width = canvas.getParentWidth();
 canvas.height = canvas.getParentHeight();
-
-// TODO: clean up this observer code for resizing
-// const myObserver = new ResizeObserver(entries => {
-//     entries.forEach(entry => {
-//         canvas.width = canvas.getParentWidth();
-//         canvas.height = canvas.getParentHeight();
-//         // canvas.context.fillStyle = 'black';
-//         // canvas.context.fillRect(0, 0, canvas.width, canvas.height);
-//         // let circle = new Circle(canvas.context, 5, canvas.center.x, canvas.center.y, 'white');
-//         // circle.draw();
-//     });
-// });
-// myObserver.observe(canvas.parent);
+canvas.enableResize();
 
 // Creates new rectangle
-// TODO: add rectangle class module
-let rectangle = new Rectangle(canvas.context, canvas.width, canvas.height, 0, 0, 'black');
+let rectangle = new Rectangle(canvas);
 rectangle.draw();
+rectangle.enableResize();
 
 // Creates new circle
-// TODO: center coords need to update with resize so
-// that i don't need to duplicate this line in the observer
-let circle = new Circle(canvas.context, 5, canvas.center.x, canvas.center.y, 'white');
+let circle = new Circle(canvas);
+circle.x = 500;
+circle.y = 500;
+circle.radius = 20;
+circle.color = 'blue';
 circle.draw();
+circle.enableResize();
 
 // This creates an event listener on the body element listening for keypresses. 
 // TODO: Modify the event listener to allow for keyup & keydown moves... e.g. a user holding a key should
