@@ -1,9 +1,9 @@
 export class Circle {
-    constructor(context, x, y, radius, color) {
+    constructor(context, radius, x, y, color) {
         this.context = context;
+        this.radius = radius;
         this.x = x;
         this.y = y;
-        this.radius = radius;
         this.color = color;
     }
   
