@@ -3,6 +3,10 @@ html, body {
     height: 100%;
 }
 
+section {
+    display: block;
+}
+
 canvas {
     display: block;
 }
