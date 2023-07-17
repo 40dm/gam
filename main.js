@@ -33,6 +33,8 @@ let circle = new Circle(canvas.context, 5, canvas.center.x, canvas.center.y, "wh
 circle.draw();
 
 // This creates an event listener on the body element listening for keypresses. 
+// TODO: Modify the event listener to allow for keyup & keydown moves... e.g. a user holding a key should
+// keep the shape moving until they release the key.
 document.querySelector('body').addEventListener('keyup', move)
 
 // This function simply logs the key the user pressed and has logic for detecting WASD presses.
