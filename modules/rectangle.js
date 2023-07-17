@@ -28,6 +28,6 @@ export class Rectangle {
                 this.draw();
             });
         });
-        this.observer.observe(o, { box: "device-pixel-content-box" });
+        this.observer.observe(o, { box: 'device-pixel-content-box' });
     }
 }

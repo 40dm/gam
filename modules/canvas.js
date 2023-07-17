@@ -64,7 +64,7 @@ export class Canvas {
                 this.height = element.devicePixelContentBoxSize[0].blockSize * this.relative.height;
             });
         });
-        this.observer.observe(o, { box: "device-pixel-content-box" });
+        this.observer.observe(o, { box: 'device-pixel-content-box' });
     }
 }
 

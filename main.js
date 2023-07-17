@@ -10,12 +10,12 @@ canvas.height = canvas.getParentHeight();
 canvas.observe(canvas.parent);
 
 // Creates new rectangle
-let rectangle = new Rectangle(canvas, canvas.width, canvas.height, 0, 0, "black");
+let rectangle = new Rectangle(canvas, canvas.width, canvas.height, 0, 0, 'black');
 rectangle.draw();
 rectangle.observe(canvas.parent);
 
 // Creates new circle
-let circle = new Circle(canvas.context, 5, canvas.center.x, canvas.center.y, "white");
+let circle = new Circle(canvas.context, 5, canvas.center.x, canvas.center.y, 'white');
 circle.draw();
 
 // This creates an event listener on the body element listening for keypresses. 
