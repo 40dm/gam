@@ -1,9 +1,9 @@
-import { Canvas } from "./modules/canvas.js";
-import { Circle } from "./modules/circle.js";
-import { Rectangle } from "./modules/rectangle.js";
+import { Canvas } from './modules/canvas.js';
+import { Circle } from './modules/circle.js';
+import { Rectangle } from './modules/rectangle.js';
 
 // Creates new canvas
-let canvas = new Canvas("game", document.body);
+let canvas = new Canvas('game', document.body);
 canvas.create();
 canvas.width = canvas.getParentWidth();
 canvas.height = canvas.getParentHeight();
