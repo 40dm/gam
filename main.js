@@ -7,16 +7,21 @@ let canvas = new Canvas('game', document.body);
 canvas.create();
 canvas.width = canvas.getParentWidth();
 canvas.height = canvas.getParentHeight();
-canvas.observe(canvas.parent);
+canvas.enableResize();
 
 // Creates new rectangle
-let rectangle = new Rectangle(canvas, canvas.width, canvas.height, 0, 0, 'black');
+let rectangle = new Rectangle(canvas);
 rectangle.draw();
-rectangle.observe(canvas.parent);
+rectangle.enableResize();
 
 // Creates new circle
-let circle = new Circle(canvas.context, 5, canvas.center.x, canvas.center.y, 'white');
+let circle = new Circle(canvas);
+circle.x = 500;
+circle.y = 500;
+circle.radius = 20;
+circle.color = 'blue';
 circle.draw();
+circle.enableResize();
 
 // This creates an event listener on the body element listening for keypresses. 
 // TODO: Modify the event listener to allow for keyup & keydown moves... e.g. a user holding a key should
