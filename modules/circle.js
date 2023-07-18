@@ -1,5 +1,6 @@
 export class Circle {
     constructor(canvas) {
+        this.canvas = canvas;
         this.context = canvas.context;
         this.x = undefined;
         this.y = undefined;
@@ -20,6 +21,6 @@ export class Circle {
                 this.draw();
             });
         });
-        this.observer.observe(this.canvas.parent.element);
+        this.observer.observe(this.canvas.parent);
     }
 }
