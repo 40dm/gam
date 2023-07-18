@@ -17,39 +17,53 @@ let draw = new ResizeObserver(elements => {
 });
 draw.observe(canvas.parent);
 
-// This creates an event listener on the body element listening for keypresses. 
-// TODO: Modify the event listener to allow for keyup & keydown moves... e.g. a user holding a key should
-// keep the shape moving until they release the key.
-document.querySelector('body').addEventListener('keyup', move)
+// This creates an event listener on the window listening for keypresses. 
+window.addEventListener('keydown', keysPressed, false)
+window.addEventListener('keyup', keysReleased, false)
 
-// This function simply logs the key the user pressed and has logic for detecting WASD presses.
-// The logic below outputs the key that was pressed and for WASD presses denotes what the circle should do.
-// The logic also updates the deltaX and deltaY variables based on which key was pressed.
-// TODO: Pass the deltaY and deltaX variables into the draw() methods to update position. 
 let deltaX = 0;
 let deltaY = 0;
+const keyW = 87;
+const keyA = 65;
+const keyS = 83;
+const keyD = 68;
+let keys = [];
 
-function move(key) {
-    switch(key.code) {
-        case 'KeyW':
-            deltaY -= 2;
-            console.log(`The user pressed ${key.code}. Move the circle UP one unit.`);
-            break;
-        case 'KeyA':
-            deltaX -= 2;
-            console.log(`The user pressed ${key.code}. Move the circle LEFT one unit.`);
-            break;
-        case 'KeyS':
-            deltaY += 2;
-            console.log(`The user pressed ${key.code}. Move the circle DOWN one unit.`);
-            break;
-        case 'KeyD':
-            deltaX += 2;
-            console.log(`The user pressed ${key.code}. Move the circle RIGHT one unit.`);
-            break;
-        default:
-            console.log(`The user pressed: ${key.code}. Do nothing, for now.`);
+// Removed the switch statement for handling keypresses and instead I'm using an if statement now
+// TODO: pass deltaX and deltaY into some kind of redrawing method/function for moving the object.
+function keysPressed(key) {
+    // store an entry for every key pressed
+    keys[key.keyCode] = true;
+    console.log(keys);
+    // left movement
+    if (keys[keyA]) {
+        deltaX -= 2;
+        console.log(`User pressed ${key}. Object moved: ${deltaX}`)
     }
-    // Here is where you would put the draw function for whatever shape you're moving.
-    // e.g. circle.draw(deltaX, deltaY) OR rectangle.draw(deltaX, deltaY)
+    // right movement
+    if (keys[keyD]) {
+        deltaX += 2;
+        console.log(`User pressed ${key}. Object moved: ${deltaX}`)
+    }
+    //down movement 
+    if (keys[keyS]) {
+        deltaY -= 2;
+        console.log(`User pressed ${key}. Object moved: ${deltaY}`)
+    }
+    // up movement 
+    if (keys[keyW]) {
+        deltaY += 2;
+        console.log(`User pressed ${key}. Object moved: ${deltaY}`)
+    }
+
+    // prevents default system behavior from being triggered by keypresses in the window
+    key.preventDefault();
+
+    // redraw function goes here in the future
+    // e.g. drawSomething();
+}
+
+function keysReleased(key) {
+    // mark keys that were released 
+    keys[key.Keycode] = false;
 }
