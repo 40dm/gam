@@ -5,20 +5,13 @@ import { Rectangle } from './modules/rectangle.js';
 
 // Creates resizable canvas with relative shape sizes
 let canvas = new Canvas('game', document.body);
-let rectangle = new Rectangle(canvas, 0, 0, null, null, 'black');
+let rectangle = new Rectangle(canvas);
+let circle = new Circle(canvas);
+
 let draw = new ResizeObserver(elements => {
     elements.forEach(element => {
         canvas.draw();
         rectangle.draw();
-        // TODO: simplify input and move 'new' outside ResizeObserver
-        let circle = new Circle(
-            canvas, 
-            canvas.element.width / 2, 
-            canvas.element.height / 2, 
-            // Sets radius to 5% of the smaller of width or height
-            Math.min(canvas.element.width, canvas.element.height) * 0.05,
-            'white'
-        );
         circle.draw();
     });
 });

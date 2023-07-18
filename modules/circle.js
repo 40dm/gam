@@ -1,16 +1,18 @@
 export class Circle {
-    constructor(canvas, x, y, radius, color) {
+    constructor(canvas) {
         this.canvas = canvas;
-        this.x = x;
-        this.y = y;
-        this.radius = radius;
-        this.color = color;
     }
 
-    draw() {
+    draw(x = 0, y = 0, radius = 0.05, color = 'white') {
+        let rel = {
+            x: this.canvas.element.width / 2 - x,
+            y: this.canvas.element.height / 2 - y,
+            radius: Math.min(this.canvas.element.width, 
+                             this.canvas.element.height) * radius
+        }
         this.canvas.context.beginPath();
-        this.canvas.context.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
-        this.canvas.context.strokeStyle = this.color;
+        this.canvas.context.arc(rel.x, rel.y, rel.radius, 0, 2 * Math.PI);
+        this.canvas.context.strokeStyle = color;
         this.canvas.context.stroke();
     }
 }
