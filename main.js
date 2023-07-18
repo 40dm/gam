@@ -2,26 +2,27 @@ import { Canvas } from './modules/canvas.js';
 import { Circle } from './modules/circle.js';
 import { Rectangle } from './modules/rectangle.js';
 
-// Creates new canvas
+
+// Creates resizable canvas with relative shape sizes
 let canvas = new Canvas('game', document.body);
-canvas.create();
-canvas.width = canvas.getParentWidth();
-canvas.height = canvas.getParentHeight();
-canvas.enableResize();
-
-// Creates new rectangle
-let rectangle = new Rectangle(canvas);
-rectangle.draw();
-rectangle.enableResize();
-
-// Creates new circle
-let circle = new Circle(canvas);
-circle.x = 500;
-circle.y = 500;
-circle.radius = 20;
-circle.color = 'blue';
-circle.draw();
-circle.enableResize();
+let rectangle = new Rectangle(canvas, 0, 0, null, null, 'black');
+let draw = new ResizeObserver(elements => {
+    elements.forEach(element => {
+        canvas.draw();
+        rectangle.draw();
+        // TODO: simplify input and move 'new' outside ResizeObserver
+        let circle = new Circle(
+            canvas, 
+            canvas.element.width / 2, 
+            canvas.element.height / 2, 
+            // Sets radius to 5% of the smaller of width or height
+            Math.min(canvas.element.width, canvas.element.height) * 0.05,
+            'white'
+        );
+        circle.draw();
+    });
+});
+draw.observe(canvas.parent);
 
 // This creates an event listener on the body element listening for keypresses. 
 // TODO: Modify the event listener to allow for keyup & keydown moves... e.g. a user holding a key should
