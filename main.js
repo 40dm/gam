@@ -47,8 +47,7 @@ let keys = {};
 function keysPressed(key, position) {
     // store an entry for every key pressed
     keys[key.keyCode] = true;
-    console.log(keys);
-    console.log(key.keyCode)
+    
     // left movement
     if (keys[keyA]) {
         position.x -= 0.01;
