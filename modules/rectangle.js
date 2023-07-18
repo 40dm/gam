@@ -1,21 +1,15 @@
 export class Rectangle {
-    constructor(canvas, x, y, width, height, color) {
+    constructor(canvas) {
         this.canvas = canvas;
-        this.x = x;
-        this.y = y;
-        this.width = width;
-        this.height = height;
-        this.color = color;
     }
 
-    draw() {
-        this.canvas.context.fillStyle = this.color;
-        this.canvas.context.fillRect(
-            this.x, 
-            this.y, 
-            // Sets size equal to canvas if input undefined
-            (this.width ? this.width : this.canvas.element.width), 
-            (this.height ? this.height : this.canvas.element.height)
-        );
+    draw(x = 0, 
+         y = 0,
+         width = this.canvas.element.width, 
+         height = this.canvas.element.height, 
+         color = 'darkblue'
+        ) {
+        this.canvas.context.fillStyle = color;
+        this.canvas.context.fillRect(x, y, width, height);
     }
 }

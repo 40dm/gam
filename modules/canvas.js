@@ -9,17 +9,12 @@ export class Canvas {
             this.parent.appendChild(this.element);
             this.element.id = this.id;
         }
-        this.element.width = this.parent.clientWidth;
-        this.element.height = this.parent.clientHeight;
-        this.context = this.element.getContext('2d');
-
-        this.element.width = this.parent.clientWidth;
-        this.element.height = this.parent.clientHeight;
     }
 
-    draw() {
-        this.element.width = this.parent.clientWidth;
-        this.element.height = this.parent.clientHeight;
+    draw(width = this.parent.clientWidth, height = this.parent.clientHeight) {
+        this.element.width = width;
+        this.element.height = height;
+        this.context = this.element.getContext('2d');
     }
 
 }
