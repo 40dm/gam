@@ -4,6 +4,8 @@ export class Circle {
     }
 
     draw(x = 0, y = 0, radius = 0.05, color = 'white') {
+        // inputs are evaluated relative to canvas midpoint
+        // and size of min(canvas height, canvas width)
         let rel = {
             x: this.canvas.element.width / 2 - x,
             y: this.canvas.element.height / 2 - y,

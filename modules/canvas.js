@@ -16,6 +16,5 @@ export class Canvas {
         this.element.height = height;
         this.context = this.element.getContext('2d');
     }
-
 }
 
