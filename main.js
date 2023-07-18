@@ -17,12 +17,13 @@ let draw = new ResizeObserver(elements => {
 });
 draw.observe(canvas.parent);
 
-// This creates an event listener on the window listening for keypresses. 
-window.addEventListener('keydown', keysPressed, false)
-window.addEventListener('keyup', keysReleased, false)
+// This creates the event listeners on the window listening for keypresses/releases. 
+window.addEventListener('keydown', keysPressed, false);
+window.addEventListener('keyup', keysReleased, false);
 
 let deltaX = 0;
 let deltaY = 0;
+// Simply storing the keycode values in a more readable format.
 const keyW = 87;
 const keyA = 65;
 const keyS = 83;
@@ -34,7 +35,6 @@ let keys = [];
 function keysPressed(key) {
     // store an entry for every key pressed
     keys[key.keyCode] = true;
-    console.log(keys);
     // left movement
     if (keys[keyA]) {
         deltaX -= 2;
@@ -65,5 +65,5 @@ function keysPressed(key) {
 
 function keysReleased(key) {
     // mark keys that were released 
-    keys[key.Keycode] = false;
+    keys[key.keyCode] = false;
 }
