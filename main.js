@@ -44,6 +44,7 @@ const keyD = 68;
 let keys = {};
 
 // Removed the switch statement for handling keypresses and instead I'm using an if statement now
+// Updated the console logging to include the actual keycode pressed for better debugging in the future.
 function keysPressed(key, position) {
     // store an entry for every key pressed
     keys[key.keyCode] = true;
@@ -51,22 +52,22 @@ function keysPressed(key, position) {
     // left movement
     if (keys[keyA]) {
         position.x -= 0.01;
-        console.log(`User pressed ${key}. Object moved: ${position.x}`)
+        console.log(`User pressed ${key.keyCode}. Object moved: ${position.x}`)
     }
     // right movement
     if (keys[keyD]) {
         position.x += 0.01;
-        console.log(`User pressed ${key}. Object moved: ${position.x}`)
+        console.log(`User pressed ${key.keyCode}. Object moved: ${position.x}`)
     }
     //down movement 
     if (keys[keyS]) {
         position.y -= 0.01;
-        console.log(`User pressed ${key}. Object moved: ${position.y}`)
+        console.log(`User pressed ${key.keyCode}. Object moved: ${position.y}`)
     }
     // up movement 
     if (keys[keyW]) {
         position.y += 0.01;
-        console.log(`User pressed ${key}. Object moved: ${position.y}`)
+        console.log(`User pressed ${key.keyCode}. Object moved: ${position.y}`)
     }
 
     // prevents default system behavior from being triggered by keypresses in the window
