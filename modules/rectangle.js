@@ -14,6 +14,6 @@ export class Rectangle {
                 this.draw();
             });
         });
-        this.observer.observe(this.canvas.parent.element);
+        this.observer.observe(this.canvas.parent);
     }
 }
