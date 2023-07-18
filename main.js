@@ -3,53 +3,78 @@ import { Circle } from './modules/circle.js';
 import { Rectangle } from './modules/rectangle.js';
 
 
-// Creates resizable canvas with relative shape sizes
+// Creates canvas and shapes
 let canvas = new Canvas('game', document.body);
-let rectangle = new Rectangle(canvas);
-let circle = new Circle(canvas);
+let scene = {
+    model: new Rectangle(canvas),
+    pos: { x: 0, y: 0 },
+    size: 1.0,
+    color: 'darkblue',
+}
+let player = {
+    model: new Circle(canvas),
+    pos: { x: 0, y: 0 },
+    size: 0.05,
+};
+let enemy = {
+    model: new Rectangle(canvas),
+    pos: { x: -0.25, y: 0.25 },
+    size: 0.05,
+    color: 'black',
+};
 
-let draw = new ResizeObserver(elements => {
-    elements.forEach(element => {
-        canvas.draw();
-        rectangle.draw();
-        circle.draw();
-    });
-});
-draw.observe(canvas.parent);
+// Draws and redraws canvas and shapes
+new ResizeObserver(draw).observe(canvas.parent);
+function draw() {
+    canvas.draw();
+    scene.model.draw(scene.pos.x, scene.pos.y, scene.size, scene.size, scene.color, true);
+    enemy.model.draw(enemy.pos.x, enemy.pos.y, enemy.size, enemy.size, enemy.color, false);
+    player.model.draw(player.pos.x, player.pos.y, player.size);
+}
 
-// This creates an event listener on the body element listening for keypresses. 
-// TODO: Modify the event listener to allow for keyup & keydown moves... e.g. a user holding a key should
-// keep the shape moving until they release the key.
-document.querySelector('body').addEventListener('keyup', move)
+// This creates the event listeners on the window listening for keypresses/releases.
+window.addEventListener('keydown', event => { keysPressed(event, player.pos); draw() }, false);
+window.addEventListener('keyup', keysReleased, false);
 
-// This function simply logs the key the user pressed and has logic for detecting WASD presses.
-// The logic below outputs the key that was pressed and for WASD presses denotes what the circle should do.
-// The logic also updates the deltaX and deltaY variables based on which key was pressed.
-// TODO: Pass the deltaY and deltaX variables into the draw() methods to update position. 
-let deltaX = 0;
-let deltaY = 0;
+// Simply storing the keycode values in a more readable format.
+const keyW = 87;
+const keyA = 65;
+const keyS = 83;
+const keyD = 68;
+let keys = {};
 
-function move(key) {
-    switch(key.code) {
-        case 'KeyW':
-            deltaY -= 2;
-            console.log(`The user pressed ${key.code}. Move the circle UP one unit.`);
-            break;
-        case 'KeyA':
-            deltaX -= 2;
-            console.log(`The user pressed ${key.code}. Move the circle LEFT one unit.`);
-            break;
-        case 'KeyS':
-            deltaY += 2;
-            console.log(`The user pressed ${key.code}. Move the circle DOWN one unit.`);
-            break;
-        case 'KeyD':
-            deltaX += 2;
-            console.log(`The user pressed ${key.code}. Move the circle RIGHT one unit.`);
-            break;
-        default:
-            console.log(`The user pressed: ${key.code}. Do nothing, for now.`);
+// Removed the switch statement for handling keypresses and instead I'm using an if statement now
+function keysPressed(key, position) {
+    // store an entry for every key pressed
+    keys[key.keyCode] = true;
+    console.log(keys);
+    console.log(key.keyCode)
+    // left movement
+    if (keys[keyA]) {
+        position.x -= 0.01;
+        console.log(`User pressed ${key}. Object moved: ${position.x}`)
     }
-    // Here is where you would put the draw function for whatever shape you're moving.
-    // e.g. circle.draw(deltaX, deltaY) OR rectangle.draw(deltaX, deltaY)
+    // right movement
+    if (keys[keyD]) {
+        position.x += 0.01;
+        console.log(`User pressed ${key}. Object moved: ${position.x}`)
+    }
+    //down movement 
+    if (keys[keyS]) {
+        position.y -= 0.01;
+        console.log(`User pressed ${key}. Object moved: ${position.y}`)
+    }
+    // up movement 
+    if (keys[keyW]) {
+        position.y += 0.01;
+        console.log(`User pressed ${key}. Object moved: ${position.y}`)
+    }
+
+    // prevents default system behavior from being triggered by keypresses in the window
+    key.preventDefault();
+}
+
+function keysReleased(key) {
+    // mark keys that were released 
+    keys[key.keyCode] = false;
 }
