@@ -77,4 +77,32 @@ function keysPressed(key, position) {
 function keysReleased(key) {
     // mark keys that were released 
     keys[key.keyCode] = false;
+    
+    // When a key is released, check keys for any keys that have a value of true.
+    Object.values(keys).forEach(value => {
+        if (value = true) {
+            if (keys[keyA]) {
+                console.log('keep moving left')
+                keysPressed(keyA)
+                console.log(keys)
+            }
+            if (keys[keyD]) {
+                console.log('keep moving right')
+                keysPressed(keyD)
+                console.log(keys)
+            }
+            if (keys[keyS]) {
+                console.log('keep moving down')
+                keysPressed(keyS)
+                console.log(keys)
+            }
+            if (keys[keyW]) {
+                console.log('keep moving up')
+                keysPressed(keyW)
+                console.log(keys)
+            }
+        } 
+    })
+
+    // If a key has a value of true, continue updating position in that direction.
 }
