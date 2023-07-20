@@ -5,7 +5,7 @@ class Shape {
         this.canvas = canvas;
         this.context = canvas.getContext('2d');
         this.fixed = {};
-        Object.defineProperties(this, {
+        Object.defineProperties(this.fixed, {
             width: {
                 set: (width) => (this.#width = width),
                 get: () => this.context,
