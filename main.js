@@ -75,12 +75,13 @@ function keysPressed(key, position) {
 }
 
 function keysReleased(key) {
-    // mark keys that were released 
+    // mark keys that were released as false
     keys[key.keyCode] = false;
-    
-    // When a key is released, check keys for any keys that have a value of true.
+    console.log(keys)
+    // When a key is released, check keys for any keys that STILL have a value of true.
+    // If a key ahs a value of true, then call the keysPressed function with the value of whatever key is still true.
     Object.values(keys).forEach(value => {
-        if (value = true) {
+        if (value) {
             if (keys[keyA]) {
                 console.log('keep moving left')
                 keysPressed(keyA)
@@ -103,6 +104,4 @@ function keysReleased(key) {
             }
         } 
     })
-
-    // If a key has a value of true, continue updating position in that direction.
 }
