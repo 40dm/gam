@@ -1,19 +1,29 @@
 export class Shape {
     // Creates persistent memory
-    #m = Object.fromEntries(['parent', 'static'].map(p => [p, {}]));
+    #m = Object.fromEntries(['parent', 'static'].map(p => [p, { x: {}, y: {} }]));
 
     // Defines class properties at object initialization
     constructor() {
-        
+
         // Handles access of parent attributes
-        this.parent = {};
+        this.parent = { x: {}, y: {} };
         Object.defineProperties(this.parent, {
             w: { get: () => document.body.clientWidth },
             h: { get: () => document.body.clientHeight },
         });
+        Object.defineProperties(this.parent.x, {
+            l: { get: () => 0 },
+            m: { get: () => Math.round(this.parent.w / 2) },
+            r: { get: () => this.parent.w },
+        });
+        Object.defineProperties(this.parent.y, {
+            t: { get: () => 0 },
+            m: { get: () => Math.round(this.parent.h / 2) },
+            b: { get: () => this.parent.h },
+        });
 
         // Handles access of static attributes
-        this.static = {};
+        this.static = { x: {}, y: {} };
         Object.defineProperties(this.static, {
             w: {
                 set: (w) => {
@@ -30,9 +40,19 @@ export class Shape {
                 get: () => Math.round(this.#m.static.h * this.#m.parent.h)
             },
         });
+        Object.defineProperties(this.static.x, {
+            l: { get: () => this.parent.x.m - this.static.w / 2 },
+            m: { get: () => this.parent.x.m },
+            r: { get: () => this.parent.x.m + this.static.w / 2 },
+        });
+        Object.defineProperties(this.static.y, {
+            t: { get: () => this.parent.y.m - this.static.h / 2 },
+            m: { get: () => this.parent.y.m },
+            b: { get: () => this.parent.y.m + this.static.h / 2 },
+        });
 
         // Handles access of dynamic attributes
-        this.dynamic = {};
+        this.dynamic = { x: {}, y: {} };
         Object.defineProperties(this.dynamic, {
             w: {
                 set: (w) => this.static.w = w,
@@ -47,9 +67,19 @@ export class Shape {
                 )
             },
         });
+        Object.defineProperties(this.dynamic.x, {
+            l: { get: () => this.parent.x.m - this.dynamic.w / 2 },
+            m: { get: () => this.parent.x.m },
+            r: { get: () => this.parent.x.m + this.dynamic.w / 2 },
+        });
+        Object.defineProperties(this.dynamic.y, {
+            t: { get: () => this.parent.y.m - this.dynamic.h / 2 },
+            m: { get: () => this.parent.y.m },
+            b: { get: () => this.parent.y.m + this.dynamic.h / 2 },
+        });
 
         // Handles access of stretch attributes
-        this.stretch = {};
+        this.stretch = { x: {}, y: {} };
         Object.defineProperties(this.stretch, {
             w: {
                 set: (w) => this.static.w = w,
@@ -60,5 +90,16 @@ export class Shape {
                 get: () => Math.round(this.#m.static.h * this.parent.h)
             },
         });
+        Object.defineProperties(this.stretch.x, {
+            l: { get: () => this.parent.x.m - this.stretch.w / 2 },
+            m: { get: () => this.parent.x.m },
+            r: { get: () => this.parent.x.m + this.stretch.w / 2 },
+        });
+        Object.defineProperties(this.stretch.y, {
+            t: { get: () => this.parent.y.m - this.stretch.h / 2 },
+            m: { get: () => this.parent.y.m },
+            b: { get: () => this.parent.y.m + this.stretch.h / 2 },
+        });
+
     }
 }
