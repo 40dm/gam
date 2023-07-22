@@ -41,14 +41,22 @@ export class Shape {
             },
         } );
         Object.defineProperties( this.static.x, {
-            l: { get: () => this.parent.x.m - this.static.w / 2 },
-            m: { get: () => this.parent.x.m },
-            r: { get: () => this.parent.x.m + this.static.w / 2 },
+            o: { 
+                set: ( o ) => this.#m.static.x.o = o, 
+                get: () => Math.round( this.#m.static.x.o * this.#m.parent.w ),
+            },
+            l: { get: () => this.parent.x.m - this.static.w / 2 + this.static.x.o },
+            m: { get: () => this.parent.x.m + this.static.x.o },
+            r: { get: () => this.parent.x.m + this.static.w / 2 + this.static.x.o },
         } );
         Object.defineProperties( this.static.y, {
-            t: { get: () => this.parent.y.m - this.static.h / 2 },
-            m: { get: () => this.parent.y.m },
-            b: { get: () => this.parent.y.m + this.static.h / 2 },
+            o: { 
+                set: ( o ) => this.#m.static.y.o = o, 
+                get: () => Math.round( this.#m.static.y.o * this.#m.parent.h ),
+            },
+            t: { get: () => this.parent.y.m - this.static.h / 2 + this.static.y.o },
+            m: { get: () => this.parent.y.m + this.static.y.o },
+            b: { get: () => this.parent.y.m + this.static.h / 2 + this.static.y.o },
         } );
 
         // Handles access of dynamic attributes
@@ -68,14 +76,26 @@ export class Shape {
             },
         } );
         Object.defineProperties( this.dynamic.x, {
-            l: { get: () => this.parent.x.m - this.dynamic.w / 2 },
-            m: { get: () => this.parent.x.m },
-            r: { get: () => this.parent.x.m + this.dynamic.w / 2 },
+            o: { 
+                set: ( o ) => this.static.x.o = o, 
+                get: () => Math.round(
+                    this.#m.static.x.o * Math.min( this.parent.w, this.parent.h )
+                ),
+            },
+            l: { get: () => this.parent.x.m - this.dynamic.w / 2 + this.dynamic.x.o },
+            m: { get: () => this.parent.x.m + this.dynamic.x.o },
+            r: { get: () => this.parent.x.m + this.dynamic.w / 2 + this.dynamic.x.o },
         } );
         Object.defineProperties( this.dynamic.y, {
-            t: { get: () => this.parent.y.m - this.dynamic.h / 2 },
-            m: { get: () => this.parent.y.m },
-            b: { get: () => this.parent.y.m + this.dynamic.h / 2 },
+            o: { 
+                set: ( o ) => this.static.y.o = o, 
+                get: () => Math.round(
+                    this.#m.static.y.o * Math.min( this.parent.w, this.parent.h )
+                ),
+            },
+            t: { get: () => this.parent.y.m - this.dynamic.h / 2 + this.dynamic.y.o },
+            m: { get: () => this.parent.y.m + this.dynamic.y.o },
+            b: { get: () => this.parent.y.m + this.dynamic.h / 2 + this.dynamic.y.o },
         } );
 
         // Handles access of stretch attributes
@@ -91,14 +111,26 @@ export class Shape {
             },
         } );
         Object.defineProperties( this.stretch.x, {
-            l: { get: () => this.parent.x.m - this.stretch.w / 2 },
-            m: { get: () => this.parent.x.m },
-            r: { get: () => this.parent.x.m + this.stretch.w / 2 },
+            o: { 
+                set: ( o ) => this.static.x.o = o, 
+                get: () => Math.round(
+                    Math.round( this.#m.static.x.o * this.parent.w )
+                ),
+            },
+            l: { get: () => this.parent.x.m - this.stretch.w / 2 + this.stretch.x.o },
+            m: { get: () => this.parent.x.m + this.stretch.x.o },
+            r: { get: () => this.parent.x.m + this.stretch.w / 2 + this.stretch.x.o },
         } );
         Object.defineProperties( this.stretch.y, {
-            t: { get: () => this.parent.y.m - this.stretch.h / 2 },
-            m: { get: () => this.parent.y.m },
-            b: { get: () => this.parent.y.m + this.stretch.h / 2 },
+            o: { 
+                set: ( o ) => this.static.y.o = o, 
+                get: () => Math.round(
+                    Math.round( this.#m.static.y.o * this.parent.h )
+                ),
+            },
+            t: { get: () => this.parent.y.m - this.stretch.h / 2 + this.stretch.y.o },
+            m: { get: () => this.parent.y.m + this.stretch.y.o },
+            b: { get: () => this.parent.y.m + this.stretch.h / 2 + this.stretch.y.o },
         } );
     }
 }
