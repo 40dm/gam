@@ -84,7 +84,6 @@ scene.canvas.addEventListener( 'touchstart', ( e ) => {
     isTouched.cursor  = true;
     isTouched.x = e.changedTouches[0].pageX;
     isTouched.y = e.changedTouches[0].pageY;
-    console.log(e.changedTouches[0].pageX, e.changedTouches[0].clientX, document.body.clientWidth);
 });
 scene.canvas.addEventListener( 'touchmove', ( e ) => { 
     e.preventDefault();
@@ -93,12 +92,12 @@ scene.canvas.addEventListener( 'touchmove', ( e ) => {
     let a = Math.abs(isTouched.x - newX);
     let b = Math.abs(isTouched.y - newY);
     let c = Math.sqrt( a ** 2 + b ** 2 );
-    let moveDeadZone = 25;
-    let inMoveRadius = moveDeadZone * 2 < c;
-    isTouched.up    = newY + moveDeadZone < isTouched.y && inMoveRadius;
-    isTouched.down  = newY - moveDeadZone > isTouched.y && inMoveRadius;
-    isTouched.left  = newX + moveDeadZone < isTouched.x && inMoveRadius;
-    isTouched.right = newX - moveDeadZone > isTouched.x && inMoveRadius;
+    let moveDeadZone = 15;
+    let inMoveZone = moveDeadZone * 2.67 < c;
+    isTouched.up    = newY + moveDeadZone < isTouched.y && inMoveZone;
+    isTouched.down  = newY - moveDeadZone > isTouched.y && inMoveZone;
+    isTouched.left  = newX + moveDeadZone < isTouched.x && inMoveZone;
+    isTouched.right = newX - moveDeadZone > isTouched.x && inMoveZone;
 });
 scene.canvas.addEventListener( 'touchend', ( e ) => { 
     e.preventDefault();
