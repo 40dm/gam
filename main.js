@@ -59,9 +59,8 @@ let frame = () => {
     if ( isTouched.right ) player.x += .01 * ( speed / fps );
 
     // Sets cursor position offset (touch controls)
-    if ( isTouched.cursor ) cursor.x = isTouched.x / document.body.clientWidth -.5;
-    if ( isTouched.cursor ) cursor.y = isTouched.y / document.body.clientHeight -.5;
-    if ( isTouched.cursor ) console.log(isTouched.x, document.body.clientWidth, cursor.x);
+    if ( isTouched.cursor ) cursor.x = isTouched.x / scene.canvas.width -.5;
+    if ( isTouched.cursor ) cursor.y = isTouched.y / scene.canvas.height -.5;
 
     // Draws scene layer
     scene.draw();
@@ -89,13 +88,17 @@ scene.canvas.addEventListener( 'touchstart', ( e ) => {
 });
 scene.canvas.addEventListener( 'touchmove', ( e ) => { 
     e.preventDefault();
-    let tolerance = 45;
     let newX = e.changedTouches[0].pageX;
     let newY = e.changedTouches[0].pageY;
-    isTouched.up    = newY + tolerance < isTouched.y;
-    isTouched.down  = newY - tolerance > isTouched.y;
-    isTouched.left  = newX + tolerance < isTouched.x;
-    isTouched.right = newX - tolerance > isTouched.x;
+    let a = Math.abs(isTouched.x - newX);
+    let b = Math.abs(isTouched.y - newY);
+    let c = Math.sqrt( a ** 2 + b ** 2 );
+    let moveDeadZone = 25;
+    let inMoveRadius = deadZone * 2 < c;
+    isTouched.up    = newY + moveDeadZone < isTouched.y && inMoveRadius;
+    isTouched.down  = newY - moveDeadZone > isTouched.y && inMoveRadius;
+    isTouched.left  = newX + moveDeadZone < isTouched.x && inMoveRadius;
+    isTouched.right = newX - moveDeadZone > isTouched.x && inMoveRadius;
 });
 scene.canvas.addEventListener( 'touchend', ( e ) => { 
     e.preventDefault();
