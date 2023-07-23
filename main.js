@@ -62,22 +62,30 @@ setInterval( frame, delay );
 
 // Handles touch start and end events
 let isTouched = { start: {} };
-let fingerSize = 30;
+let fingerSize = 25;
 scene.element.addEventListener( 'touchstart', ( e ) => { 
+    e.preventDefault();
+
     let x = Math.round( e.changedTouches[0].pageX / fingerSize ) * fingerSize;
     let y = Math.round( e.changedTouches[0].pageY / fingerSize ) * fingerSize;
+    
     isTouched.start.x = Math.round( x / fingerSize ) * fingerSize;
     isTouched.start.y = Math.round( y / fingerSize ) * fingerSize;
 });
 scene.element.addEventListener( 'touchmove', ( e ) => { 
+    e.preventDefault();
+
     let x = Math.round( e.changedTouches[0].pageX / fingerSize ) * fingerSize;
     let y = Math.round( e.changedTouches[0].pageY / fingerSize ) * fingerSize;
+
     isTouched.up = y < isTouched.start.y;
     isTouched.down = y > isTouched.start.y;
     isTouched.left = x < isTouched.start.x;
     isTouched.right = x > isTouched.start.x;
 });
 scene.element.addEventListener( 'touchend', ( e ) => { 
+    e.preventDefault();
+
     isTouched.start.x = undefined;
     isTouched.start.y = undefined;
     isTouched.up = false;
