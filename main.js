@@ -2,18 +2,18 @@ import { Canvas } from './modules/canvas.js';
 import { Rectangle } from './modules/rectangle.js';
 
 // Creates the scene
-let canvas = new Canvas('canvas', document.body)
+let canvas = new Canvas( 'canvas', document.body )
 canvas.draw();
 
 // Creates scene background
-let background = new Rectangle(canvas, 'stretch');
+let background = new Rectangle( canvas, 'stretch' );
 background.width = 1;
 background.height = 1;
 background.color = 'black';
 background.draw();
 
 // Creates hostile npc
-let hostile = new Rectangle(canvas, 'dynamic');
+let hostile = new Rectangle( canvas, 'dynamic' );
 hostile.width = .05;
 hostile.height = .05;
 hostile.x = -.3;
@@ -22,7 +22,7 @@ hostile.color = 'orange';
 hostile.draw();
 
 // Creates player character
-let player = new Rectangle(canvas, 'dynamic');
+let player = new Rectangle( canvas, 'dynamic' );
 player.width = .05;
 player.height = .05;
 player.color = 'darkblue';
