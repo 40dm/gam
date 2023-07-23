@@ -1,15 +1,16 @@
-import { Canvas } from './modules/canvas.js';
+import { Scene } from './modules/scene.js';
 import { Rectangle } from './modules/rectangle.js';
+import { Circle } from './modules/circle.js';
 
 // Creates the scene
-let scene = new Canvas( 'scene', document.body )
+let scene = new Scene( 'scene', document.body )
 scene.draw();
 
 // Creates scene background
 let background = new Rectangle( scene, 'stretch' );
 background.width = 1;
 background.height = 1;
-background.color = 'darkslategray';
+background.fillColor = 'darkslategray';
 background.draw();
 
 // Creates hostile npc
@@ -18,15 +19,22 @@ hostile.width = .05;
 hostile.height = .05;
 hostile.x = -.3;
 hostile.y = -.3;
-hostile.color = 'orangered';
+hostile.fillColor = 'orangered';
 hostile.draw();
 
 // Creates player character
 let player = new Rectangle( scene, 'dynamic' );
 player.width = .05;
 player.height = .05;
-player.color = 'midnightblue';
+player.fillColor = 'midnightblue';
 player.draw();
+
+// Creates cursor
+let cursor = new Circle( scene, 'static' );
+cursor.width = .05;
+cursor.height = .05;
+cursor.lineColor = 'white';
+cursor.draw();
 
 // Handles keyboard key press and release events
 let isKeyDown = {};
@@ -38,51 +46,63 @@ let fps = 60;
 let speed = 15;
 let delay = 1000 / fps;
 let frame = () => {
-    // Draws scene
-    scene.draw();
-
-    // Draws shapes
-    background.draw();
-    player.draw();
-    hostile.draw();
-
-    // Sets player movement (WASD)
+    // Sets player position offset (WASD controls)
     if ( isKeyDown[ 'KeyW' ] ) player.y -= .01 * ( speed / fps );
     if ( isKeyDown[ 'KeyS' ] ) player.y += .01 * ( speed / fps );
     if ( isKeyDown[ 'KeyA' ] ) player.x -= .01 * ( speed / fps );
     if ( isKeyDown[ 'KeyD' ] ) player.x += .01 * ( speed / fps );
 
-    // Sets player movement (touch)
+    // Sets player position offset (touch controls)
     if ( isTouched.up ) player.y -= .01 * ( speed / fps );
     if ( isTouched.down ) player.y += .01 * ( speed / fps );
     if ( isTouched.left ) player.x -= .01 * ( speed / fps );
     if ( isTouched.right ) player.x += .01 * ( speed / fps );
+
+    // Sets cursor position offset (touch controls)
+    console.log(scene.width)
+    if ( isTouched.cursor ) cursor.x = isTouched.x / scene.canvas.width - 0.5;
+    if ( isTouched.cursor ) cursor.y = isTouched.y / scene.canvas.height - 0.5;
+
+    // Draws scene layer
+    scene.draw();
+    background.draw();
+
+    // Draws friendly layer
+    player.draw();
+
+    // Draws hostile layer
+    hostile.draw();
+
+    // Draws UI layer
+    if ( isTouched.cursor ) cursor.draw();
 }
 setInterval( frame, delay );
 
 // Handles touch start and end events
-let isTouched = { start: {} };
-scene.element.addEventListener( 'touchstart', ( e ) => { 
+let isTouched = { };
+scene.canvas.addEventListener( 'touchstart', ( e ) => { 
     e.preventDefault();
-    isTouched.start.x = e.changedTouches[0].pageX;
-    isTouched.start.y = e.changedTouches[0].pageY;
+    isTouched.cursor  = true;
+    isTouched.x = e.changedTouches[0].pageX;
+    isTouched.y = e.changedTouches[0].pageY;
 });
-scene.element.addEventListener( 'touchmove', ( e ) => { 
+scene.canvas.addEventListener( 'touchmove', ( e ) => { 
     e.preventDefault();
-    let tolerance = 25;
-    let x = e.changedTouches[0].pageX;
-    let y = e.changedTouches[0].pageY;
-    isTouched.up    = y + tolerance < isTouched.start.y;
-    isTouched.down  = y - tolerance > isTouched.start.y;
-    isTouched.left  = x + tolerance < isTouched.start.x;
-    isTouched.right = x - tolerance > isTouched.start.x;
+    let tolerance = 45;
+    let newX = e.changedTouches[0].pageX;
+    let newY = e.changedTouches[0].pageY;
+    isTouched.up    = newY + tolerance < isTouched.y;
+    isTouched.down  = newY - tolerance > isTouched.y;
+    isTouched.left  = newX + tolerance < isTouched.x;
+    isTouched.right = newX - tolerance > isTouched.x;
 });
-scene.element.addEventListener( 'touchend', ( e ) => { 
+scene.canvas.addEventListener( 'touchend', ( e ) => { 
     e.preventDefault();
-    isTouched.start.x = undefined;
-    isTouched.start.y = undefined;
-    isTouched.up      = false;
-    isTouched.down    = false;
-    isTouched.left    = false;
-    isTouched.right   = false;
+    isTouched.cursor = false;
+    isTouched.x      = undefined;
+    isTouched.y      = undefined;
+    isTouched.up     = false;
+    isTouched.down   = false;
+    isTouched.left   = false;
+    isTouched.right  = false;
 });
