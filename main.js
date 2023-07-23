@@ -22,6 +22,17 @@ hostile.y = -.3;
 hostile.fillColor = 'orangered';
 hostile.draw();
 
+let bigBaby = new Circle( scene, 'static' );
+bigBaby.width = .25;
+bigBaby.height = bigBaby.width;
+bigBaby.x = .25;
+bigBaby.y = -.3;
+bigBaby.lineColor = 'white';
+bigBaby.lineAlpha = 1;
+bigBaby.fillColor = 'salmon';
+bigBaby.fillAlpha = 1;
+bigBaby.draw();
+
 // Creates player character
 let player = new Rectangle( scene, 'dynamic' );
 player.width = .05;
@@ -74,6 +85,7 @@ let frame = () => {
 
     // Draws hostile layer
     hostile.draw();
+    bigBaby.draw();
 
     // Draws UI layer
     if ( isTouched.cursor ) cursor.draw();
