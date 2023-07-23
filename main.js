@@ -31,9 +31,12 @@ player.draw();
 
 // Creates cursor
 let cursor = new Circle( scene, 'static' );
-cursor.width = .05;
-cursor.height = .05;
+cursor.width = .15;
+cursor.height = cursor.width;
 cursor.lineColor = 'white';
+cursor.lineAlpha = .2;
+cursor.fillColor = 'white';
+cursor.fillAlpha = .07;
 cursor.draw();
 
 // Handles keyboard key press and release events
