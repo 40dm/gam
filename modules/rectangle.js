@@ -5,11 +5,13 @@ export class Rectangle extends Shape {
         super();
         this.canvas = canvas;
         this.type = type;
-        this.color = 'black';
+        this.lineColor = 'black';
+        this.fillColor = 'transparent';
+        this.fillAlpha = 1;
     }
 
     draw() {
-        this.canvas.context.fillStyle = this.color;
+        this.canvas.context.fillStyle = this.fillColor;
         this.canvas.context.fillRect(
             this[this.type].x.l, 
             this[this.type].y.t, 

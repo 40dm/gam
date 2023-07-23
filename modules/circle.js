@@ -1,22 +1,29 @@
-export class Circle {
-    constructor(canvas) {
+import { Shape } from './shape.js';
+
+export class Circle extends Shape {
+    constructor( canvas, type ) {
+        super();
         this.canvas = canvas;
+        this.type = type;
+        this.lineColor = 'black';
+        this.fillColor = 'transparent';
+        this.fillAlpha = 1;
     }
 
-    draw(x = 0, y = 0, r = 0.05, color = 'white') {
-        // inputs are evaluated relative to canvas top left
-        // and size of min(canvas height, canvas width)
-        let width = this.canvas.element.width;
-        let height = this.canvas.element.height;
-        let smaller = Math.min(width, height);
-        let size = {
-            x: (0.5 + x) * width,
-            y: (0.5 - y) * height,
-            radius: r * smaller,
-        }
+    draw() {
+        this.canvas.context.strokeStyle = this.lineColor;
+        this.canvas.context.fillStyle = this.fillColor;
         this.canvas.context.beginPath();
-        this.canvas.context.arc(size.x, size.y, size.radius, 0, 2 * Math.PI);
-        this.canvas.context.strokeStyle = color;
+        this.canvas.context.arc(
+            this[this.type].x.m, 
+            this[this.type].y.m,
+            Math.min( this[ this.type ].w, this[ this.type ].h ) / 2,
+            0, 
+            2 * Math.PI
+            );
         this.canvas.context.stroke();
+        this.canvas.context.globalAlpha = this.fillAlpha;
+        this.canvas.context.fill();
+
     }
 }
