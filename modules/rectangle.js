@@ -1,30 +1,20 @@
-export class Rectangle {
-    constructor(canvas) {
+import { Shape } from './shape.js';
+
+export class Rectangle extends Shape {
+    constructor( canvas, type ) {
+        super();
         this.canvas = canvas;
+        this.type = type;
+        this.color = 'black';
     }
 
-    draw(x = 0, y = 0, w = 1,  h = 1, color = 'darkblue', stretch = true) {
-        // inputs are evaluated relative to canvas top left
-        // and size of min(canvas height, canvas width)
-        let width = this.canvas.element.width;
-        let height = this.canvas.element.height;
-        let smaller = Math.min(width, height);
-
-        // Resizes dimensions when stretch is on
-        let resize = {
-            width: w * ( stretch ? width : smaller ),
-            height: h * ( stretch ? height : smaller ),
-        }
-        let r = {
-            w: resize.width / width,
-            h: resize.height / height,
-        }
-        let pos = {
-            x: width * ( 0.5 - r.w / 2 + x ),
-            y: height * ( 0.5 - r.h / 2 - y ),
-        }
-
-        this.canvas.context.fillStyle = color;
-        this.canvas.context.fillRect(pos.x, pos.y, resize.width, resize.height);
+    draw() {
+        this.canvas.context.fillStyle = this.color;
+        this.canvas.context.fillRect(
+            this[this.type].x.l, 
+            this[this.type].y.t, 
+            this[this.type].w, 
+            this[this.type].h
+        );
     }
 }

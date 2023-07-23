@@ -28,6 +28,7 @@ export class Shape {
             w: {
                 set: ( w ) => {
                     this.#m.static.w = w;
+                    this.#m.static.x.o = 0;
                     this.#m.parent.w = this.parent.w;
                 },
                 get: () => Math.round( this.#m.static.w * this.#m.parent.w ) 
@@ -35,6 +36,7 @@ export class Shape {
             h: {
                 set: ( h ) => {
                     this.#m.static.h = h;
+                    this.#m.static.y.o = 0;
                     this.#m.parent.h = this.parent.h;
                 },
                 get: () => Math.round( this.#m.static.h * this.#m.parent.h )
@@ -133,4 +135,14 @@ export class Shape {
             b: { get: () => this.parent.y.m + this.stretch.h / 2 + this.stretch.y.o },
         } );
     }
+
+    // Handles user-facing proxies
+    set width(w) { this.static.w = w; }
+    get width() { return this.#m.static.w; }
+    set height(h) { this.static.h = h; }
+    get height() { return this.#m.static.h; }
+    set x(o) { this.static.x.o = o; }
+    get x() { return this.#m.static.x.o; }
+    set y(o) { this.static.y.o = o; }
+    get y() { return this.#m.static.y.o; }
 }
