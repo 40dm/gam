@@ -9,7 +9,7 @@ canvas.draw();
 let background = new Rectangle( canvas, 'stretch' );
 background.width = 1;
 background.height = 1;
-background.color = 'black';
+background.color = 'darkslategray';
 background.draw();
 
 // Creates hostile npc
@@ -18,69 +18,38 @@ hostile.width = .05;
 hostile.height = .05;
 hostile.x = -.3;
 hostile.y = -.3;
-hostile.color = 'orange';
+hostile.color = 'orangered';
 hostile.draw();
 
 // Creates player character
 let player = new Rectangle( canvas, 'dynamic' );
 player.width = .05;
 player.height = .05;
-player.color = 'darkblue';
+player.color = 'midnightblue';
 player.draw();
 
+// Handles keyboard key press and release events
+let isKeyDown = {};
+addEventListener( 'keydown', ( e ) => isKeyDown[e.code] = true );
+addEventListener( 'keyup', ( e ) => isKeyDown[e.code] = false );
+
 // Initiates scene refresh
-let fps = 1000 / 60;
-let draw = () => {
+let fps = 60;
+let speed = 15;
+let delay = 1000 / fps;
+let frame = () => {
+    // Draws scene
     canvas.draw();
+
+    // Draws shapes
     background.draw();
     player.draw();
     hostile.draw();
+
+    // Sets player movement
+    if ( isKeyDown[ 'KeyW' ] ) player.y -= .01 * ( speed / fps );
+    if ( isKeyDown[ 'KeyS' ] ) player.y += .01 * ( speed / fps );
+    if ( isKeyDown[ 'KeyA' ] ) player.x -= .01 * ( speed / fps );
+    if ( isKeyDown[ 'KeyD' ] ) player.x += .01 * ( speed / fps );
 }
-setInterval( draw, fps );
-
-// This creates the event listeners on the window listening for keypresses/releases.
-window.addEventListener( 'keydown', event => keysPressed( event, player ) );
-window.addEventListener( 'keyup', event => keysReleased( event ) );
-
-// Simply storing the keycode values in a more readable format.
-const keyW = 87;
-const keyA = 65;
-const keyS = 83;
-const keyD = 68;
-let keys = {};
-
-// Removed the switch statement for handling keypresses and instead I'm using an if statement now
-// Updated the console logging to include the actual keycode pressed for better debugging in the future.
-function keysPressed(event, player) {
-    // store an entry for every key pressed
-    keys[event.keyCode] = true;
-    
-    // left movement
-    if (keys[keyA]) {
-        player.x -= 0.01;
-        console.log(`User pressed ${event.keyCode}. Object moved: ${player.x}`)
-    }
-    // right movement
-    if (keys[keyD]) {
-        player.x += 0.01;
-        console.log(`User pressed ${event.keyCode}. Object moved: ${player.x}`)
-    }
-    //down movement 
-    if (keys[keyS]) {
-        player.y += 0.01;
-        console.log(`User pressed ${event.keyCode}. Object moved: ${player.y}`)
-    }
-    // up movement 
-    if (keys[keyW]) {
-        player.y -= 0.01;
-        console.log(`User pressed ${event.keyCode}. Object moved: ${player.y}`)
-    }
-
-    // prevents default system behavior from being triggered by keypresses in the window
-    event.preventDefault();
-}
-
-function keysReleased(event) {
-    // mark keys that were released 
-    keys[event.keyCode] = false;
-}
+setInterval( frame, delay );
