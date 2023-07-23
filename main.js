@@ -22,7 +22,7 @@ hostile.y = -.3;
 hostile.fillColor = 'orangered';
 hostile.draw();
 
-let bigBaby = new Circle( scene, 'static' );
+let bigBaby = new Circle( scene, 'dynamic' );
 bigBaby.width = .25;
 bigBaby.height = bigBaby.width;
 bigBaby.x = .25;
