@@ -84,6 +84,7 @@ scene.canvas.addEventListener( 'touchstart', ( e ) => {
     isTouched.cursor  = true;
     isTouched.x = e.changedTouches[0].pageX;
     isTouched.y = e.changedTouches[0].pageY;
+    console.log(e.changedTouches[0].pageX, e.changedTouches[0].clientX, document.body.clientWidth);
 });
 scene.canvas.addEventListener( 'touchmove', ( e ) => { 
     e.preventDefault();
