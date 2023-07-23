@@ -59,9 +59,9 @@ let frame = () => {
     if ( isTouched.right ) player.x += .01 * ( speed / fps );
 
     // Sets cursor position offset (touch controls)
-    console.log(scene.width)
-    if ( isTouched.cursor ) cursor.x = isTouched.x / scene.canvas.width - 0.5;
-    if ( isTouched.cursor ) cursor.y = isTouched.y / scene.canvas.height - 0.5;
+    if ( isTouched.cursor ) cursor.x = isTouched.x / document.body.clientWidth -.5;
+    if ( isTouched.cursor ) cursor.y = isTouched.y / document.body.clientHeight -.5;
+    if ( isTouched.cursor ) console.log(isTouched.x, document.body.clientWidth, cursor.x);
 
     // Draws scene layer
     scene.draw();
@@ -85,6 +85,7 @@ scene.canvas.addEventListener( 'touchstart', ( e ) => {
     isTouched.cursor  = true;
     isTouched.x = e.changedTouches[0].pageX;
     isTouched.y = e.changedTouches[0].pageY;
+    console.log(e.changedTouches[0].pageX, e.changedTouches[0].clientX, document.body.clientWidth);
 });
 scene.canvas.addEventListener( 'touchmove', ( e ) => { 
     e.preventDefault();
