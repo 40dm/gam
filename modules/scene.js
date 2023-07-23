@@ -14,9 +14,9 @@ export class Scene {
         this.canvas.height = this.parent.clientHeight;
     }
 
-    draw(width = this.parent.clientWidth, height = this.parent.clientHeight) {
-        this.canvas.width = width;
-        this.canvas.height = height;
+    draw() {
+        this.canvas.width = this.parent.clientWidth;
+        this.canvas.height = this.parent.clientHeight;
         this.context = this.canvas.getContext('2d');
     }
 }

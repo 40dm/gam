@@ -44,7 +44,10 @@ export class Shape {
         } );
         Object.defineProperties( this.static.x, {
             o: { 
-                set: ( o ) => this.#m.static.x.o = o, 
+                set: ( o ) => {
+                    this.#m.static.x.o = o;
+                    this.#m.parent.w = this.parent.w;
+                },
                 get: () => Math.round( this.#m.static.x.o * this.#m.parent.w ),
             },
             l: { get: () => this.parent.x.m - this.static.w / 2 + this.static.x.o },
@@ -53,7 +56,10 @@ export class Shape {
         } );
         Object.defineProperties( this.static.y, {
             o: { 
-                set: ( o ) => this.#m.static.y.o = o, 
+                set: ( o ) => {
+                    this.#m.static.y.o = o;
+                    this.#m.parent.h = this.parent.h;
+                },
                 get: () => Math.round( this.#m.static.y.o * this.#m.parent.h ),
             },
             t: { get: () => this.parent.y.m - this.static.h / 2 + this.static.y.o },
