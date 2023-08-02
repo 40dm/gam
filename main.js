@@ -1,6 +1,7 @@
 import { Scene } from './modules/scene.js';
 import { Rectangle } from './modules/rectangle.js';
 import { Circle } from './modules/circle.js';
+import { Heart } from './modules/heart.js';
 
 // Creates the scene
 let scene = new Scene( 'scene', document.body )
@@ -32,6 +33,19 @@ bigBaby.lineAlpha = 1;
 bigBaby.fillColor = 'salmon';
 bigBaby.fillAlpha = 1;
 bigBaby.draw();
+
+// Creates a test heart
+// TODO: make it appear in the right place, add more hearts for health n stuff
+let testHeart = new Heart( scene, 'dynamic');
+testHeart.strokeStyle = 'black';
+testHeart.strokeWeight = 2;
+testHeart.shadowOffsetX = 4.0;
+testHeart.shadowOffsetY = 4.0;
+testHeart.lineWidth = 3;
+testHeart.fillColor = 'red';
+testHeart.size = 30;
+testHeart.position = 1
+testHeart.draw();
 
 // Creates player character
 let player = new Rectangle( scene, 'dynamic' );
@@ -79,6 +93,7 @@ let frame = () => {
     // Draws scene layer
     scene.draw();
     background.draw();
+    testHeart.draw();
 
     // Draws friendly layer
     player.draw();
